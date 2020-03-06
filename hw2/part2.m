@@ -57,8 +57,13 @@ image = imread('alaska.jpg');
 % end
 
 
-R = makeresampler({'cubic','nearest'},'fill');
-color = [5 127 56]';
-Bf = imtransform(image, T, R,'XData',[-49 1000],'YData',[-49 500], 'FillValues',color);
-figure, imshow(Bf);
-title('Pad Method = ''fill''');
+% R = makeresampler({'cubic','nearest'},'fill');
+% color = [5 127 56]';
+% Bf = imtransform(image, T, R,'XData',[-49 1000],'YData',[-49 500], 'FillValues',color);
+% figure, imshow(Bf);
+% title('Pad Method = ''fill''');
+
+R = makeresampler({'cubic','nearest'},'replicate');
+Br = imtransform(image,T,R,'XData',[-49 1000],'YData', [-49 500]);
+figure, imshow(Br);
+title('Pad Method = ''replicate''');
