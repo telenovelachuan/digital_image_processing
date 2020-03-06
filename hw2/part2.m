@@ -74,17 +74,26 @@ image = imread('alaska.jpg');
 % title('Pad Method = ''bound''');
 
 
-R = makeresampler({'cubic','nearest'},'fill');
-Cf = imtransform(image,T,R,'XData',[870 930],'YData',[300 420],...
+% R = makeresampler({'cubic','nearest'},'fill');
+% Cf = imtransform(image,T,R,'XData',[870 930],'YData',[300 420],...
+%                  'FillValues',[5 127 56]');
+% 
+% R = makeresampler({'cubic','nearest'},'bound');
+% Cb = imtransform(image,T,R,'XData',[870 930],'YData',[300 420],...
+%                  'FillValues',[5 127 56]');
+% 
+% Cf = imresize(Cf,12,'nearest');
+% Cb = imresize(Cb,12,'nearest');
+% 
+% figure;
+% subplot(1,2,1); imshow(Cf); title('Pad Method = ''fill''');
+% subplot(1,2,2); imshow(Cb); title('Pad Method = ''bound''');
+
+
+Thalf = maketform('affine', [1 0; 0.3 1; 0 0]/2);
+
+R = makeresampler({'cubic','nearest'},'circular');
+Bc = imtransform(image,Thalf,R,'XData',[-49 1000],'YData',[-49 500],...
                  'FillValues',[5 127 56]');
-
-R = makeresampler({'cubic','nearest'},'bound');
-Cb = imtransform(image,T,R,'XData',[870 930],'YData',[300 420],...
-                 'FillValues',[5 127 56]');
-
-Cf = imresize(Cf,12,'nearest');
-Cb = imresize(Cb,12,'nearest');
-
-figure;
-subplot(1,2,1); imshow(Cf); title('Pad Method = ''fill''');
-subplot(1,2,2); imshow(Cb); title('Pad Method = ''bound''');
+figure, imshow(Bc);
+title('Pad Method = ''circular''');
