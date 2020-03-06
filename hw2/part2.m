@@ -21,5 +21,15 @@ image = imread('alaska.jpg');
 %     subplot(2,2,i),imshow(B); title(strcat('color=', mat2str(color)));
 % end
 
+T = maketform('affine', [1 0 0; 0.3 1 0; 0 0 1] );
+color = [5 127 56]';
+R = makeresampler({'cubic','nearest'}, 'fill');
+B = imtransform(image, T, R, 'FillValues', color);
+[U,V] = meshgrid(0:20:800,0:20:400);
+[X,Y] = tformfwd(T,U,V);
+gray = 0.65 * [1 1 1];
 
-
+figure; imshow(B); title("sheared image");
+hold on;
+line(X, Y, 'Color',gray);
+line(X',Y','Color',gray);
