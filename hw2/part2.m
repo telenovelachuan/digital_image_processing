@@ -63,7 +63,28 @@ image = imread('alaska.jpg');
 % figure, imshow(Bf);
 % title('Pad Method = ''fill''');
 
-R = makeresampler({'cubic','nearest'},'replicate');
-Br = imtransform(image,T,R,'XData',[-49 1000],'YData', [-49 500]);
-figure, imshow(Br);
-title('Pad Method = ''replicate''');
+% R = makeresampler({'cubic','nearest'},'replicate');
+% Br = imtransform(image,T,R,'XData',[-49 1000],'YData', [-49 500]);
+% figure, imshow(Br);
+% title('Pad Method = ''replicate''');
+
+% R = makeresampler({'cubic','nearest'}, 'bound');
+% Bb = imtransform(image,T,R,'XData',[-49 1000],'YData',[-49 500], 'FillValues',[5 127 56]');
+% figure, imshow(Bb);
+% title('Pad Method = ''bound''');
+
+
+R = makeresampler({'cubic','nearest'},'fill');
+Cf = imtransform(image,T,R,'XData',[870 930],'YData',[300 420],...
+                 'FillValues',[5 127 56]');
+
+R = makeresampler({'cubic','nearest'},'bound');
+Cb = imtransform(image,T,R,'XData',[870 930],'YData',[300 420],...
+                 'FillValues',[5 127 56]');
+
+Cf = imresize(Cf,12,'nearest');
+Cb = imresize(Cb,12,'nearest');
+
+figure;
+subplot(1,2,1); imshow(Cf); title('Pad Method = ''fill''');
+subplot(1,2,2); imshow(Cb); title('Pad Method = ''bound''');
