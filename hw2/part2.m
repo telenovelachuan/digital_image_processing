@@ -90,10 +90,17 @@ image = imread('alaska.jpg');
 % subplot(1,2,2); imshow(Cb); title('Pad Method = ''bound''');
 
 
-Thalf = maketform('affine', [1 0; 0.3 1; 0 0]/2);
+% Thalf = maketform('affine', [1 0; 0.3 1; 0 0]/2);
+% 
+% R = makeresampler({'cubic','nearest'},'circular');
+% Bc = imtransform(image,Thalf,R,'XData',[-49 1000],'YData',[-49 500],...
+%                  'FillValues',[5 127 56]');
+% figure, imshow(Bc);
+% title('Pad Method = ''circular''');
 
-R = makeresampler({'cubic','nearest'},'circular');
-Bc = imtransform(image,Thalf,R,'XData',[-49 1000],'YData',[-49 500],...
+
+R = makeresampler({'cubic','nearest'},'symmetric');
+Bs = imtransform(image,Thalf,R,'XData',[-49 1000],'YData',[-49 500],...
                  'FillValues',[5 127 56]');
-figure, imshow(Bc);
-title('Pad Method = ''circular''');
+figure, imshow(Bs);
+title('Pad Method = ''symmetric''');
