@@ -1,0 +1,24 @@
+image = imread('alaska.jpg');
+% figure; subplot(2,2,1),imshow(image); title('Original Image');
+% 
+% i = 1;
+% for a=[0.2, 0.5, 0.7]
+%     T = maketform('affine', [1 0 0; a 1 0; 0 0 1] );
+%     color = [5 127 56]';
+%     R = makeresampler({'cubic','nearest'}, 'fill');
+%     B = imtransform(image, T, R, 'FillValues', color);
+%     i = i + 1;
+%     subplot(2,2,i),imshow(B); title(strcat('a=', num2str(a)));
+% end
+
+i = 0;
+for a=[50, 100, 200]
+    T = maketform('affine', [1 0 0; a 1 0; 0 0 1] );
+    color = [(a * 7)%255 (a*) 56]';
+    R = makeresampler({'cubic','nearest'}, 'fill');
+    B = imtransform(image, T, R, 'FillValues', color);
+    i = i + 1;
+    subplot(2,2,i),imshow(B); title(strcat('a=', num2str(a)));
+end
+
+
