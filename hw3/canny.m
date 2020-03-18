@@ -50,3 +50,4 @@ lines = houghlines(BW,theta,rho,P, 'FillGap', 5, 'MinLength', 7);
 
 y = [1 1.5 1 2 2.5]';
 A = [1 1; 2 1; 3 1; 4 1; 5 1 ];
+c = inv(A'*A)*A'*y
