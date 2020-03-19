@@ -57,5 +57,5 @@ lines = houghlines(BW,theta,rho,P, 'FillGap', 5, 'MinLength', 7);
 % imshow(rez);
 % title('laplacian');
 
-E2 = edge(grey,'prewitt');
-figure; imshow(E2); title('prewitt');
+E2 = edge(grey,'sobel');
+figure; imshow(E2); title('sobel');
