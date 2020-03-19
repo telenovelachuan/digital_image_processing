@@ -52,10 +52,10 @@ lines = houghlines(BW,theta,rho,P, 'FillGap', 5, 'MinLength', 7);
 % A = [1 1; 2 1; 3 1; 4 1; 5 1 ];
 % c = inv(A'*A)*A'*y
 
-lab=[0 1 0;1 -4 1; 0 1 0];
-rez=uint8(filter2(lab,grey,'same'));
-imshow(rez);
-title('laplacian');
+% lab=[0 1 0;1 -4 1; 0 1 0];
+% rez=uint8(filter2(lab,grey,'same'));
+% imshow(rez);
+% title('laplacian');
 
-% E2 = edge(grey,'prewitt');
-% figure; imshow(E2);
+E2 = edge(grey,'prewitt');
+figure; imshow(E2); title('prewitt');
