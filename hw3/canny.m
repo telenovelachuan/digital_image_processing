@@ -1,7 +1,7 @@
 I = imread('ku.jpeg');
 %imshow(I);
 grey = rgb2gray(I);
-imshow(grey);
+%imshow(grey);
 %BW = edge(grey,'canny', [0.2 0.5]);
 %imshow(BW);
 
@@ -60,3 +60,8 @@ lines = houghlines(BW,theta,rho,P, 'FillGap', 5, 'MinLength', 7);
 
 % E2 = edge(grey,'sobel');
 % figure; imshow(E2); title('sobel');
+
+PSF = fspecial('gaussian',7,10);
+Blurred = imfilter(grey,PSF,'symmetric','conv');
+imshow(Blurred)
+title('Blurred Image')
