@@ -63,5 +63,17 @@ lines = houghlines(BW,theta,rho,P, 'FillGap', 5, 'MinLength', 7);
 
 PSF = fspecial('gaussian',7,10);
 Blurred = imfilter(grey,PSF,'symmetric','conv');
-imshow(Blurred)
-title('Blurred Image')
+% imshow(Blurred)
+% title('Blurred Image')
+
+UNDERPSF = ones(size(PSF)-4);
+[J1,P1] = deconvblind(Blurred,UNDERPSF);
+% imshow(J1)
+
+OVERPSF = padarray(UNDERPSF,[4 4],'replicate','both');
+[J2,P2] = deconvblind(Blurred,OVERPSF);
+%imshow(J2)
+
+INITPSF = padarray(UNDERPSF,[2 2],'replicate','both');
+[J3,P3] = deconvblind(Blurred,INITPSF);
+imshow(J3)
