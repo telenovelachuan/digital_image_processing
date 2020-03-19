@@ -1,6 +1,7 @@
 I = imread('ku.jpeg');
 %imshow(I);
 grey = rgb2gray(I);
+imshow(grey);
 %BW = edge(grey,'canny', [0.2 0.5]);
 %imshow(BW);
 
@@ -57,5 +58,5 @@ lines = houghlines(BW,theta,rho,P, 'FillGap', 5, 'MinLength', 7);
 % imshow(rez);
 % title('laplacian');
 
-E2 = edge(grey,'sobel');
-figure; imshow(E2); title('sobel');
+% E2 = edge(grey,'sobel');
+% figure; imshow(E2); title('sobel');
