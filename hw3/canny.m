@@ -57,5 +57,5 @@ rez=uint8(filter2(lab,grey,'same'));
 imshow(rez);
 title('laplacian');
 
-E2 = edge(grey,'prewitt');
-figure; imshow(E2);
+% E2 = edge(grey,'prewitt');
+% figure; imshow(E2);
