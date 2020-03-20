@@ -173,6 +173,5 @@ for i=2:r-1
       result(i,j)=sum;      
     end
 end
-
 imshow(result);
 
