@@ -101,4 +101,10 @@ WEIGHT(:,[1:3 end-(0:2)]) = 0;
 %figure; imshow(WEIGHT);
 
 [J,P] = deconvblind(Blurred,INITPSF,30,[],WEIGHT);
-imshow(P)
+%imshow(P)
+
+P1 = 2;
+P2 = 2;
+FUN = @(PSF) padarray(PSF(P1+1:end-P1,P2+1:end-P2),[P1 P2]);
+[JF,PF] = deconvblind(Blurred,OVERPSF,30,[],WEIGHT,FUN);
+imshow(JF)
