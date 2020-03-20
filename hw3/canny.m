@@ -79,16 +79,26 @@ INITPSF = padarray(UNDERPSF,[2 2],'replicate','both');
 %imshow(J3)
 
 
-figure;
-subplot(2,2,1)
-imshow(PSF,[],'InitialMagnification','fit')
-title('True PSF')
-subplot(222)
-imshow(P1,[],'InitialMagnification','fit')
-title('Reconstructed Undersized PSF')
-subplot(2,2,3)
-imshow(P2,[],'InitialMagnification','fit')
-title('Reconstructed Oversized PSF')
-subplot(2,2,4)
-imshow(P3,[],'InitialMagnification','fit')
-title('Reconstructed true PSF')
+% figure;
+% subplot(2,2,1)
+% imshow(PSF,[],'InitialMagnification','fit')
+% title('True PSF')
+% subplot(222)
+% imshow(P1,[],'InitialMagnification','fit')
+% title('Reconstructed Undersized PSF')
+% subplot(2,2,3)
+% imshow(P2,[],'InitialMagnification','fit')
+% title('Reconstructed Oversized PSF')
+% subplot(2,2,4)
+% imshow(P3,[],'InitialMagnification','fit')
+% title('Reconstructed true PSF')
+
+WEIGHT = edge(Blurred,'sobel', .08);
+se = strel('disk',2);
+WEIGHT = 1-double(imdilate(WEIGHT,se));
+WEIGHT([1:3 end-(0:2)],:) = 0;
+WEIGHT(:,[1:3 end-(0:2)]) = 0;
+%figure; imshow(WEIGHT);
+
+[J,P] = deconvblind(Blurred,INITPSF,30,[],WEIGHT);
+imshow(J)
