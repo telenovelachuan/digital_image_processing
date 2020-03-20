@@ -109,18 +109,70 @@ WEIGHT(:,[1:3 end-(0:2)]) = 0;
 % [JF,PF] = deconvblind(Blurred,OVERPSF,30,[],WEIGHT,FUN);
 % imshow(JF)
 
-vg1 = imread('vg1.jpg');grey1 = rgb2gray(vg1);
-vg2 = imread('vg2.jpg');grey2 = rgb2gray(vg2);
-vg3 = imread('vg3.jpg');grey3 = rgb2gray(vg3);
-vg4 = imread('vg4.jpg');grey4 = rgb2gray(vg4);
-vg5 = imread('vg5.jpg');grey5 = rgb2gray(vg5);
+vg{1} = imread('vg1.jpg');
+vg{2} = imread('vg2.jpg');
+vg{3} = imread('vg3.jpg');
+vg{4} = imread('vg4.jpg');
+vg{5} = imread('vg5.jpg');
+vg{6} = imread('vg6.jpg');
 %imshow(grey);
+% 
+for idx=1:6
+    grey = rgb2gray(vg{idx});
+    
+    %bw = edge(grey,'canny', [0.1 0.3]);
+    %bw = edge(grey,'sobel');
+    %bw = edge(grey,'Prewitt');
+    
+    [r, c]=size(grey);
+    grey=im2double(grey);
+    filter=[-1 -1 -1;-1 8 -1; -1 -1 -1];
+    result=grey;
+    for i=2:r-1
+        for j=2:c-1
+            sum=0;
+            row=0;
+            col=1;
 
-for g=[grey1, grey2, grey3, grey4, grey5]
-%     bw = edge(grey,'canny', [a a+0.3]);
-%     i = i + 1;
-%     subplot(2,2,i),imshow(bw); title(strcat('thresholds=[', num2str(a), ', ', num2str(a+0.3), ']'));
+            for k=i-1:i+1
+                row=row+1;
+                col=1;
+                for l=j-1:j+1
+                    sum = sum+grey(k,l)*filter(row,col);               
+                    col=col+1;
+                end
+            end
+          result(i,j)=sum;      
+        end
+    end
+    
+    
+    subplot(2,3,idx),imshow(result);
 end
 
-BW = edge(grey,'canny', [0.1 0.3]);
-imshow(BW);
+
+
+% [r, c] = size(grey);
+% grey=im2double(grey);
+% filter=[-1 -1 -1;-1 8 -1; -1 -1 -1];
+% result=grey;
+% for i=2:r-1
+%     for j=2:c-1
+%         sum=0;
+%         row=0;
+%         col=1;
+%         
+%         for k=i-1:i+1
+%             row=row+1;
+%             col=1;
+%             for l=j-1:j+1
+%                 sum = sum+grey(k,l)*filter(row,col);               
+%                 col=col+1;
+%             end
+%         end
+%       result(i,j)=sum;      
+%     end
+% end
+% 
+% imshow(result);
+

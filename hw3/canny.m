@@ -116,16 +116,63 @@ vg{4} = imread('vg4.jpg');
 vg{5} = imread('vg5.jpg');
 vg{6} = imread('vg6.jpg');
 %imshow(grey);
+% 
+% for idx=1:6
+%     grey = rgb2gray(vg{idx});
+%     
+%     %bw = edge(grey,'canny', [0.1 0.3]);
+%     %bw = edge(grey,'sobel');
+%     %bw = edge(grey,'Prewitt');
+%     
+%     [r, c]=size(grey);
+%     grey=im2double(grey);
+%     filter=[-1 -1 -1;-1 8 -1; -1 -1 -1];
+%     result=grey;
+%     for i=2:r-1
+%         for j=2:c-1
+%             sum=0;
+%             row=0;
+%             col=1;
+% 
+%             for k=i-1:i+1
+%                 row=row+1;
+%                 col=1;
+%                 for l=j-1:j+1
+%                     sum = sum+grey(k,l)*filter(row,col);               
+%                     col=col+1;
+%                 end
+%             end
+%           result(i,j)=sum;      
+%         end
+%     end
+%     
+%     
+%     subplot(2,3,idx),imshow(result);
+% end
 
-for i=1:6
-    grey = rgb2gray(vg{i});
-    
-    %bw = edge(grey,'canny', [0.1 0.3]);
-    %bw = edge(grey,'sobel');
-    %bw = edge(grey,'Prewitt');
-    
-    lab=[0 1 0;1 -4 1; 0 1 0];
-    rez=uint8(filter2(lab,grey,'same'));
-    subplot(2,3,i),imshow(rez);
+
+
+[r, c] = size(grey);
+grey=im2double(grey);
+filter=[-1 -1 -1;-1 8 -1; -1 -1 -1];
+result=grey;
+for i=2:r-1
+    for j=2:c-1
+        sum=0;
+        row=0;
+        col=1;
+        
+        for k=i-1:i+1
+            row=row+1;
+            col=1;
+            for l=j-1:j+1
+                sum = sum+grey(k,l)*filter(row,col);               
+                col=col+1;
+            end
+        end
+      result(i,j)=sum;      
+    end
 end
+
+imshow(result);
 
