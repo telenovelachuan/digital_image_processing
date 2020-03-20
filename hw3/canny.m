@@ -101,4 +101,4 @@ WEIGHT(:,[1:3 end-(0:2)]) = 0;
 %figure; imshow(WEIGHT);
 
 [J,P] = deconvblind(Blurred,INITPSF,30,[],WEIGHT);
-imshow(J)
+imshow(P)
