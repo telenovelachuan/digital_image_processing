@@ -103,8 +103,29 @@ WEIGHT(:,[1:3 end-(0:2)]) = 0;
 [J,P] = deconvblind(Blurred,INITPSF,30,[],WEIGHT);
 %imshow(P)
 
-P1 = 2;
-P2 = 2;
-FUN = @(PSF) padarray(PSF(P1+1:end-P1,P2+1:end-P2),[P1 P2]);
-[JF,PF] = deconvblind(Blurred,OVERPSF,30,[],WEIGHT,FUN);
-imshow(JF)
+% P1 = 2;
+% P2 = 2;
+% FUN = @(PSF) padarray(PSF(P1+1:end-P1,P2+1:end-P2),[P1 P2]);
+% [JF,PF] = deconvblind(Blurred,OVERPSF,30,[],WEIGHT,FUN);
+% imshow(JF)
+
+vg{1} = imread('vg1.jpg');
+vg{2} = imread('vg2.jpg');
+vg{3} = imread('vg3.jpg');
+vg{4} = imread('vg4.jpg');
+vg{5} = imread('vg5.jpg');
+vg{6} = imread('vg6.jpg');
+%imshow(grey);
+
+for i=1:6
+    grey = rgb2gray(vg{i});
+    
+    %bw = edge(grey,'canny', [0.1 0.3]);
+    %bw = edge(grey,'sobel');
+    %bw = edge(grey,'Prewitt');
+    
+    lab=[0 1 0;1 -4 1; 0 1 0];
+    rez=uint8(filter2(lab,grey,'same'));
+    subplot(2,3,i),imshow(rez);
+end
+
