@@ -1,0 +1,1 @@
+MBS ./img/ ./output/ 1
