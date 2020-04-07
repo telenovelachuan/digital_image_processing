@@ -32,23 +32,24 @@ srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_proje
 for i = 1:200
    filename = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/',srcFiles(i).name);
     I = imread(filename);
+    BW = imbinarize(I);
     
-    [~,threshold] = edge(I,'sobel');
-    fudgeFactor = 0.5;
-    BWs = edge(I,'sobel',threshold * fudgeFactor);
+%     [~,threshold] = edge(I,'sobel');
+%     fudgeFactor = 0.5;
+%     BWs = edge(I,'sobel',threshold * fudgeFactor);
+% 
+%     se90 = strel('line',3,90);
+%     se0 = strel('line',3,0);
+%     BWsdil = imdilate(BWs,[se90 se0]);
+%     BWdfill = imfill(BWsdil,'holes');
+% 
+%     BWnobord = imclearborder(BWdfill,4);
+%     seD = strel('diamond',1);
+%     BWfinal = imerode(BWnobord,seD);
+%     BWfinal = imerode(BWfinal,seD);
 
-    se90 = strel('line',3,90);
-    se0 = strel('line',3,0);
-    BWsdil = imdilate(BWs,[se90 se0]);
-    BWdfill = imfill(BWsdil,'holes');
-
-    BWnobord = imclearborder(BWdfill,4);
-    seD = strel('diamond',1);
-    BWfinal = imerode(BWnobord,seD);
-    BWfinal = imerode(BWfinal,seD);
-
-    folder = '/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/saliency_map_seg';
-    imwrite(BWfinal,fullfile(folder, srcFiles(i).name))
+    folder = '/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/saliency_map_seg_gt';
+    imwrite(BW,fullfile(folder, srcFiles(i).name))
     %figure, imshow(I);
 end
 
