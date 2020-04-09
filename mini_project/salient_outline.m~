@@ -59,21 +59,26 @@
 I = imread('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/2008_002682_MB+.png');
 BWs = edge(I,'canny', [0.1 0.2]);
 
+se901 = strel('line',7,90);
+se01 = strel('line',7,0);
+BWsdil1 = imdilate(BWs,[se90 se0]);
+BWdfill1 = imfill(BWsdil,'holes');
 
-se90 = strel('line',7,90);
-se0 = strel('line',7,0);
-BWsdil = imdilate(BWs,[se90 se0]);
-BWdfill = imfill(BWsdil,'holes');
+se902 = strel('line',3,90);
+se02 = strel('line',3,0);
+BWsdil2 = imdilate(BWs,[se90 se0]);
+BWdfill2 = imfill(BWsdil,'holes');
 
-BWnobord = imclearborder(BWdfill,8);
-%SE = strel('diamond',1);
-SE = strel("disk",3); 
-BWfinal = imerode(BWnobord,SE);
-%BWfinal = imerode(BWfinal,SE);
-%imshow(BWfinal)
+% BWnobord = imclearborder(BWdfill,8);
+% %SE = strel('diamond',1);
+% SE = strel("disk",3); 
+% BWfinal = imerode(BWnobord,SE);
+% %BWfinal = imerode(BWfinal,SE);
+% imshow(BWfinal)
 
 figure
-montage({I, BWfinal})
+%multi = cat(I, BWdfill1, BWdfill2);
+montage({I, BWdfill1, BWdfill2}, 'Size', [1,3]})
 
 
 
