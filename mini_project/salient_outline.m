@@ -27,53 +27,53 @@
 %     %figure, imshow(I);
 % end
 
-% % segmentation on saliency map
-% srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/*.png');  % the folder in which ur images exists
-% for i = 1:200
-%    filename = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/',srcFiles(i).name);
-%     I = imread(filename);
-%     %BW = imbinarize(I);
-%     
-%     %[~,threshold] = edge(I,'sobel');
-%     %fudgeFactor = 0.5;
-%     %BWs = edge(I,'sobel',threshold * fudgeFactor);
-%     BWs = edge(I,'canny', [0.1 0.2]);
+% segmentation on saliency map
+srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/*.png');  % the folder in which ur images exists
+for i = 1:200
+   filename = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/',srcFiles(i).name);
+    I = imread(filename);
+    %BW = imbinarize(I);
+    
+    %[~,threshold] = edge(I,'sobel');
+    %fudgeFactor = 0.5;
+    %BWs = edge(I,'sobel',threshold * fudgeFactor);
+    BWs = edge(I,'canny', [0.1 0.2]);
+
+    se90 = strel('line',7,90);
+    se0 = strel('line',7,0);
+    BWsdil = imdilate(BWs,[se90 se0]);
+    BWdfill = imfill(BWsdil,'holes');
+
+    BWnobord = imclearborder(BWdfill,8);
+    %seD = strel('diamond',1);
+    seD = strel("disk",3); 
+    BWfinal = imerode(BWnobord,seD);
+    %BWfinal = imerode(BWfinal,seD);
+
+    folder = '/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/saliency_map_seg_disk';
+    imwrite(BWfinal,fullfile(folder, srcFiles(i).name))
+    %figure, imshow(I);
+end
+
+% % texture segmentation
+% I = imread('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/2008_002682_MB+.png');
+% BWs = edge(I,'canny', [0.1 0.2]);
 % 
-%     se90 = strel('line',3,90);
-%     se0 = strel('line',3,0);
-%     BWsdil = imdilate(BWs,[se90 se0]);
-%     BWdfill = imfill(BWsdil,'holes');
 % 
-%     BWnobord = imclearborder(BWdfill,8);
-%     %seD = strel('diamond',1);
-%     seD = strel("disk",3); 
-%     BWfinal = imerode(BWnobord,seD);
-%     %BWfinal = imerode(BWfinal,seD);
+% se90 = strel('line',7,90);
+% se0 = strel('line',7,0);
+% BWsdil = imdilate(BWs,[se90 se0]);
+% BWdfill = imfill(BWsdil,'holes');
 % 
-%     folder = '/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/saliency_map_seg_disk';
-%     imwrite(BWfinal,fullfile(folder, srcFiles(i).name))
-%     %figure, imshow(I);
-% end
-
-% texture segmentation
-I = imread('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/2008_002682_MB+.png');
-BWs = edge(I,'canny', [0.1 0.2]);
-
-
-se90 = strel('line',7,90);
-se0 = strel('line',7,0);
-BWsdil = imdilate(BWs,[se90 se0]);
-BWdfill = imfill(BWsdil,'holes');
-
-BWnobord = imclearborder(BWdfill,8);
-%SE = strel('diamond',1);
-SE = strel("disk",3); 
-BWfinal = imerode(BWnobord,SE);
-%BWfinal = imerode(BWfinal,SE);
-%imshow(BWfinal)
-
-figure
-montage({I, BWfinal})
+% BWnobord = imclearborder(BWdfill,8);
+% %SE = strel('diamond',1);
+% SE = strel("disk",3); 
+% BWfinal = imerode(BWnobord,SE);
+% %BWfinal = imerode(BWfinal,SE);
+% %imshow(BWfinal)
+% 
+% figure
+% montage({I, BWfinal})
 
 
 
