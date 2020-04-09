@@ -59,11 +59,11 @@
 I = imread('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/2008_002682_MB+.png');
 BWs = edge(I,'canny', [0.1 0.2]);
 
-se90 = strel('line',3,90);
-se0 = strel('line',3,0);
+se90 = strel('line',7,90);
+se0 = strel('line',7,0);
 BWsdil = imdilate(BWs,[se90 se0]);
 BWdfill = imfill(BWsdil,'holes');
-% 
+
 % BWnobord = imclearborder(BWdfill,8);
 % %SE = strel('diamond',1);
 % SE = strel("disk",3); 
