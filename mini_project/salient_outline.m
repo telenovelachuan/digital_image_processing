@@ -176,16 +176,55 @@
 % figure
 % montage(groups, 'Size', [5, 2]);
 
-% evaluation samples
-srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_bad_integrity/*.jpg');  % the folder in which ur images exists
-evaluations = {};
-for i = 1:6
-    image = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_bad_integrity/',srcFiles(i).name);
-    I = imread(image);
-    evaluations = [evaluations, I];
+% % evaluation samples
+% srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_bad_integrity/*.jpg');  % the folder in which ur images exists
+% evaluations = {};
+% for i = 1:6
+%     image = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_bad_integrity/',srcFiles(i).name);
+%     I = imread(image);
+%     evaluations = [evaluations, I];
+% 
+%     %figure, imshow(I);
+% end
+% 
+% figure
+% montage(evaluations, 'Size', [3, 2]);
 
+
+% evaluating
+srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/img_original/*.jpg');  % the folder in which ur images exists
+for i = 1:200
+    file_name = srcFiles(i).name;
+    origin_name = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/img_original/',srcFiles(i).name);
+    origin = imread(origin_name);
+    name_split = split(file_name,".");
+    name = name_split{1};
+    mb_name = strcat(name, '_MB+.png');
+    png_name = strcat(name, '.png');
+    gt_path = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/ground_truth_mask/', png_name);
+    gt = imread(gt_path);
+    gt = im2bw(gt);
+    segment_path = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/saliency_map_seg_global_threshold/', mb_name);
+    segmented = imread(segment_path);
+    figure('visible', 'off')
+    imshow(origin)
+    info_gt = regionprops(gt,'Boundingbox');
+    info_seg = regionprops(segmented,'Boundingbox');
+    hold on
+    for k = 1 : length(info_gt)
+         BB = info_gt(k).BoundingBox;
+         rectangle('Position', [BB(1),BB(2),BB(3),BB(4)],'EdgeColor','g','LineWidth',2) ;
+    end
+    hold on
+    for k = 1 : length(info_seg)
+         BB = info_seg(k).BoundingBox;
+         rectangle('Position', [BB(1),BB(2),BB(3),BB(4)],'EdgeColor','r','LineWidth',2) ;
+    end
+
+    folder = '/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_global_threshold';
+    F = getframe;
+	imwrite(F.cdata, fullfile(folder, srcFiles(i).name))
+    close(figure)
+    
     %figure, imshow(I);
 end
-
-figure
-montage(evaluations, 'Size', [3, 2]);
