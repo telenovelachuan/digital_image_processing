@@ -78,16 +78,23 @@
 
 % evaluating
 %BW = imread('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/saliency_map_seg_disk/2008_002682_MB+.png');
+origin = imread('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/img_original/2008_002682.jpg');
 gt = imread('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/ground_truth_mask/2008_002682.png');
 gt = im2bw(gt);
-imshow(gt)
+segmented = imread('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/saliency_map_seg_disk/2008_002682_MB+.png');
+imshow(origin)
 info_gt = regionprops(gt,'Boundingbox');
+info_seg = regionprops(segmented,'Boundingbox');
 hold on
 for k = 1 : length(info_gt)
      BB = info_gt(k).BoundingBox;
      rectangle('Position', [BB(1),BB(2),BB(3),BB(4)],'EdgeColor','g','LineWidth',2) ;
 end
-
+hold on
+for k = 1 : length(info_seg)
+     BB = info_seg(k).BoundingBox;
+     rectangle('Position', [BB(1),BB(2),BB(3),BB(4)],'EdgeColor','r','LineWidth',2) ;
+end
 
 
 % function ratio = evalMetric (org,gt)
