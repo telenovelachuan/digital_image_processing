@@ -159,20 +159,33 @@
 %     ratio = I/S;
 % end
 
+% % comparison on Gaussian filter
+% srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/gausssian_cmp/*.png');  % the folder in which ur images exists
+% groups = {};
+% for i = 1:5
+%     no_filter = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_original/',srcFiles(i).name);
+%     I_no_filter = imread(no_filter);
+%     groups = [groups, I_no_filter];
+%     filtered = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/',srcFiles(i).name);
+%     I_filtered = imread(filtered);
+%     groups = [groups, I_filtered];
+% 
+%     %figure, imshow(I);
+% end
+% 
+% figure
+% montage(groups, 'Size', [5, 2]);
 
-srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/gausssian_cmp/*.png');  % the folder in which ur images exists
-groups = {};
-for i = 1:5
-    no_filter = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_original/',srcFiles(i).name);
-    I_no_filter = imread(no_filter);
-    groups = [groups, I_no_filter];
-    filtered = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/output_filtered/',srcFiles(i).name);
-    I_filtered = imread(filtered);
-    groups = [groups, I_filtered];
+% evaluation samples
+srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_cmp/*.jpg');  % the folder in which ur images exists
+evaluations = {};
+for i = 1:6
+    image = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_cmp/',srcFiles(i).name);
+    I = imread(image);
+    evaluations = [evaluations, I];
 
     %figure, imshow(I);
 end
 
 figure
-montage(groups, 'Size', [5, 2]);
-
+montage(evaluations, 'Size', [3, 2]);
