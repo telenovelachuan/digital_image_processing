@@ -177,10 +177,10 @@
 % montage(groups, 'Size', [5, 2]);
 
 % evaluation samples
-srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_seg_vs_threshold_selected/*.jpg');  % the folder in which ur images exists
+srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_global_threshold_selected/*.jpg');  % the folder in which ur images exists
 evaluations = {};
 for i = 1:6
-    image = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_seg_vs_threshold_selected/',srcFiles(i).name);
+    image = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_global_threshold_selected/',srcFiles(i).name);
     I = imread(image);
     evaluations = [evaluations, I];
 
@@ -188,7 +188,7 @@ for i = 1:6
 end
 
 figure
-montage(evaluations, 'Size', [2, 3]);
+montage(evaluations, 'Size', [3, 2]);
 
 
 % % evaluating for thresholding
