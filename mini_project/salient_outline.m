@@ -177,10 +177,10 @@
 % montage(groups, 'Size', [5, 2]);
 
 % evaluation samples
-srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_cmp/*.jpg');  % the folder in which ur images exists
+srcFiles = dir('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_bad_integrity/*.jpg');  % the folder in which ur images exists
 evaluations = {};
 for i = 1:6
-    image = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_cmp/',srcFiles(i).name);
+    image = strcat('/Users/macbook/Documents/git/digital_image_processing/mini_project/MBS/Windows/evaluation_bad_integrity/',srcFiles(i).name);
     I = imread(image);
     evaluations = [evaluations, I];
 
