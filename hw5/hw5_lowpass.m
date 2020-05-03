@@ -31,11 +31,3 @@ montage(results);
 
 
 
-
-% % Move the origin of the transform to the center of the frequency rectangle.
-% Fcf=fftshift(spacial);
-% Fcf = uint8(255 * mat2gray(Fcf));
-% %S2=log(1+abs(Fcf));
-% imshow(Fcf);
-
-
