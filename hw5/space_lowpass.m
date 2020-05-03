@@ -28,6 +28,3 @@ figure
 montage(results);
 
 
-
-
-
