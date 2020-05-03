@@ -8,7 +8,7 @@ PQ = paddedsize(size(pattern));
 %Create a Gaussian Lowpass filter 5% the width of the Fourier transform
 D0 = 0.05*PQ(1);
 
-d_options = [0.01 0.8];
+d_options = [0.05 0.2 0.5 0.9];
 results = {};
 for idx = 1:numel(d_options)
     D0 = d_options(idx);
