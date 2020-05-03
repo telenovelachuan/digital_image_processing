@@ -1,12 +1,12 @@
 origin = imread('pattern.tif');
-pattern = imnoise(pattern, 'gaussian', 0, 0.1);
+pattern = imnoise(origin, 'gaussian', 0, 0.1);
 
 %Determine good padding for Fourier transform
 PQ = paddedsize(size(pattern));
 %Create a Gaussian Lowpass filter 5% the width of the Fourier transform
 D0 = 0.05*PQ(1);
 
-d_options = [0.01 0.03 0.05 0.1];
+d_options = [0.01 0.03 0.05 2];
 results = {};
 for idx = 1:numel(d_options)
     ratio = d_options(idx);
